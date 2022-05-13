@@ -3,7 +3,7 @@ import { Post } from "./Post"
 import { getUserPosts } from "./PostManager"
 
 export const MyPosts = () => {
-    const currentUser = localStorage.getItem("token")
+    const currentUser = localStorage.getItem("userId")
     const [posts, setPosts] = useState([])
 
     useEffect(

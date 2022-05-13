@@ -9,7 +9,7 @@ export const Post = ({ listView, cardView, post }) => {
 
     const [showComments, setShowComments] = useState(false)
     const history = useHistory()
-    const currentUser = parseInt(localStorage.getItem("token"))
+    const currentUser = parseInt(localStorage.getItem("userId"))
 
 
     return <>
