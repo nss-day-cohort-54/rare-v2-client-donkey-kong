@@ -71,7 +71,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
             tagsToAdd = form.tags.map(tag => tag.id)
         }
         const newPost = {
-            userId: parseInt(localStorage.getItem("token")),
+            userId: parseInt(localStorage.getItem("userId")),
             categoryId: form.categoryId,
             title: form.title,
             publicationDate: (new Date()).toISOString().split('T')[0],

@@ -24,13 +24,16 @@ export const Register = ({setToken}) => {
         last_name: lastName.current.value,
         email: email.current.value,
         password: password.current.value,
-        bio: bio.current.value
+        bio: bio.current.value,
+        created_on: "2022-05-13",
+        active: true,
+        profile_image_url: "https://picsum.photos/200"
       }
 
       registerUser(newUser)
         .then(res => {
           if ("valid" in res && res.valid) {
-            setToken(res.token)
+            setToken(res)
             history.push("/")
           }
         })
