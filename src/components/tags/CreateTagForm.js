@@ -20,7 +20,7 @@ export const NewTagForm = ({ getTags }) => {
     // invoke addtags from tagManager
 
     // post the newTag to the tags tablbe in db
-    // return fetch("http://localhost:8088/tags", fetchOption) 
+    // return fetch("http://localhost:8000/tags", fetchOption) 
 
     // example:
 
@@ -29,7 +29,7 @@ export const NewTagForm = ({ getTags }) => {
         const newTag = {
             label: form.label,
         }
-        return fetchIt(`${Settings.API}/tags`, "POST", JSON.stringify(newTag))
+        return fetchIt(`${Settings.API}/tags`, "POST", newTag)
                 .then(getTags)
                 
                 // .then(getAllTags())
@@ -42,7 +42,7 @@ export const NewTagForm = ({ getTags }) => {
         //     body: JSON.stringify(newTag)
         // }
 
-        // return fetch("http://localhost:8088/tags", fetchOption)
+        // return fetch("http://localhost:8000/tags", fetchOption)
         // // .then(window.location.reload())
     }
 
@@ -88,6 +88,7 @@ export const NewTagForm = ({ getTags }) => {
                         <button onClick={(e) => {
                             submitTag(e)
                             updateForm({label: ""})
+                            history.push("/tags")
                         }} className="submit-button">
                             Submit
                         </button>
