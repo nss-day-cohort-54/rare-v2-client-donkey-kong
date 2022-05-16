@@ -20,7 +20,7 @@ export const NewTagForm = ({ getTags }) => {
     // invoke addtags from tagManager
 
     // post the newTag to the tags tablbe in db
-    // return fetch("http://localhost:8088/tags", fetchOption) 
+    // return fetch("http://localhost:8000/tags", fetchOption) 
 
     // example:
 
@@ -31,21 +31,6 @@ export const NewTagForm = ({ getTags }) => {
         }
         return fetchIt(`${Settings.API}/tags`, "POST", newTag)
                 .then(getTags)
-
-
-
-
-                // export const createGame = (game) => {
-                //     const requestOptions = {
-                //         method: 'POST',
-                //         headers: {
-                //             "Content-Type": "application/json",
-                //             "Authorization": `Token ${localStorage.getItem("lu_token")}`
-                //         },
-                //         body: JSON.stringify(game)
-                //     };
-                //     return fetch('http://localhost:8000/games', requestOptions)
-                //         .then(response => response.json())
                 
                 // .then(getAllTags())
                 // .then(tagsData => setTags(tagsData))
@@ -57,7 +42,7 @@ export const NewTagForm = ({ getTags }) => {
         //     body: JSON.stringify(newTag)
         // }
 
-        // return fetch("http://localhost:8088/tags", fetchOption)
+        // return fetch("http://localhost:8000/tags", fetchOption)
         // // .then(window.location.reload())
     }
 
@@ -103,9 +88,9 @@ export const NewTagForm = ({ getTags }) => {
                         <button onClick={(e) => {
                             submitTag(e)
                             updateForm({label: ""})
-                            history.push({ pathname: "/tags" })
+                            history.push("/tags")
                         }} className="submit-button">
-                            Save
+                            Submit
                         </button>
                     </div>
                 </div>
