@@ -11,7 +11,7 @@ export const SubForm = ({ author }) => {
 
     useEffect(
         () => {
-            let userId = localStorage.getItem("token")
+            let userId = localStorage.getItem("userId")
             setCurrentUser(userId)
         },
         []

@@ -5,7 +5,7 @@ import { Post } from "./Post"
 export const SubbedPosts = () => {
     const [subs, setSubs] = useState([{posts: []}])
     const [posts, setPosts] = useState([])
-    const currentUser = localStorage.getItem("token")
+    const currentUser = localStorage.getItem("userId")
 
     useEffect(
         () => {
