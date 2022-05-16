@@ -3,8 +3,7 @@ import { Settings } from "../utils/Settings"
 
 
 export const getAllPosts = () => {
-  return fetch(`${Settings.API}/posts`)
-    .then((res) => res.json())
+  return fetchIt(`${Settings.API}/posts`)
 }
 
 // export function that fetches single post, needs param to take id as arg, then parse from json to js
