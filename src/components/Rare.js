@@ -9,9 +9,15 @@ export const Rare = () => {
   const [token, setTokenState] = useState(localStorage.getItem('token'))
 
   const setToken = (res) => {
-    localStorage.setItem('token', res.token)
-    localStorage.setItem('userId', res.userId)
-    setTokenState(res.token)
+    if (res){
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('userId', res.userId)
+      setTokenState(res.token)
+    } else {
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
+      setTokenState(false)
+    }
   }
 
   return <>
