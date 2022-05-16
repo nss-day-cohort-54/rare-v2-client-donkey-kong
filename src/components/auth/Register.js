@@ -24,6 +24,8 @@ export const Register = ({setToken}) => {
         last_name: lastName.current.value,
         email: email.current.value,
         password: password.current.value,
+        profile_image_url: "",
+        created_on: "",
         bio: bio.current.value
       }
 

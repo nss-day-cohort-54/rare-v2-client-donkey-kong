@@ -1,5 +1,7 @@
 // FetchIt is a universal fetch function
 // takes the target url, a method, and a body
+// FetchIt is a universal fetch function
+// takes the target url, a method, and a body
 import humps from "humps";
 
 export const fetchIt = (url, method = "GET", body = null) => {
