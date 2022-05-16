@@ -87,8 +87,10 @@ export const NewTagForm = ({ getTags }) => {
 
                         <button onClick={(e) => {
                             submitTag(e)
-                            updateForm({label: ""})
-                            history.push("/tags")
+                            .then(() => {
+                                updateForm({label: ""})
+                                history.push("/tags")
+                            })
                         }} className="submit-button">
                             Submit
                         </button>
