@@ -29,8 +29,23 @@ export const NewTagForm = ({ getTags }) => {
         const newTag = {
             label: form.label,
         }
-        return fetchIt(`${Settings.API}/tags`, "POST", JSON.stringify(newTag))
+        return fetchIt(`${Settings.API}/tags`, "POST", newTag)
                 .then(getTags)
+
+
+
+
+                // export const createGame = (game) => {
+                //     const requestOptions = {
+                //         method: 'POST',
+                //         headers: {
+                //             "Content-Type": "application/json",
+                //             "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                //         },
+                //         body: JSON.stringify(game)
+                //     };
+                //     return fetch('http://localhost:8000/games', requestOptions)
+                //         .then(response => response.json())
                 
                 // .then(getAllTags())
                 // .then(tagsData => setTags(tagsData))
@@ -88,8 +103,9 @@ export const NewTagForm = ({ getTags }) => {
                         <button onClick={(e) => {
                             submitTag(e)
                             updateForm({label: ""})
+                            history.push({ pathname: "/tags" })
                         }} className="submit-button">
-                            Submit
+                            Save
                         </button>
                     </div>
                 </div>
