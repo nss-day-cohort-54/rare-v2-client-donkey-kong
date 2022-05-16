@@ -9,9 +9,9 @@ export const AllTags = () => {
 
     const getTags = () => {
         return getAllTags()
-                .then((tags => {
-                    setTags(tags)
-                }))
+            .then((tags => {
+                setTags(tags)
+            }))
     }
     const history = useHistory()
 
@@ -26,6 +26,16 @@ export const AllTags = () => {
     //     },
     //     [tags]
     // )
+    const deleteTag = (tag) => {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("token")}`
+            },
+            body: tag
+        }
+    }
 
     return <>
         <div>AllTags Page</div>
@@ -39,7 +49,16 @@ export const AllTags = () => {
         </div>
         {tags.map((tag) => {
             return <div key={`tag--${tag.id}`}>{tag.label}
-                <button>edit</button> <button>delete</button>
+                {/* <button>edit</button> */}
+                <button onClick={
+                    () => {
+                        if (confirm('Are you sure ?')) {
+                            deleteTag();
+                        } else {
+                            console.log('cancel')
+                        }
+                    }
+                } className="submit-button">delete</button>
             </div>
         })}
 
