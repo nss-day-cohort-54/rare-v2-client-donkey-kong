@@ -16,29 +16,29 @@ export const AllPosts = () => {
     const [filter, setFilterType] = useState({ type: "all", value: "" })
 
 
-    useEffect(
-        () => {
-            getAllUsers()
-                .then(setUsers)
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         getAllUsers()
+    //             .then(setUsers)
+    //     },
+    //     []
+    // )
 
-    useEffect(
-        () => {
-            getAllTags()
-                .then(setTags)
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         getAllTags()
+    //             .then(setTags)
+    //     },
+    //     []
+    // )
 
-    useEffect(
-        () => {
-            getAllCategories()
-                .then(setCategories)
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         getAllCategories()
+    //             .then(setCategories)
+    //     },
+    //     []
+    // )
 
 
     useEffect(() => {
@@ -47,29 +47,30 @@ export const AllPosts = () => {
                 .then((posts) => {
                     setPosts(posts)
                 })
-        } else if (filter.type === "title") {
-            searchPostTitles(filter.value)
-                .then(setPosts)
-        } else if (filter.type === "category") {
-           searchPostCategories(filter.value)
-                .then(setPosts)
-        } 
-          // run category filter fetch with value
-          else if (filter.type === "user") {
-            getUserPosts(filter.value)
-                .then(setPosts)
-            // run user filter fetch with value
-        } else if (filter.type === "tag") {
-            getPostsByTag(filter.value)
-                .then(setPosts)
-            // run tag filter fetch with value
         }
+        // } else if (filter.type === "title") {
+        //     searchPostTitles(filter.value)
+        //         .then(setPosts)
+        // } else if (filter.type === "category") {
+        //    searchPostCategories(filter.value)
+        //         .then(setPosts)
+        // } 
+        //   // run category filter fetch with value
+        //   else if (filter.type === "user") {
+        //     getUserPosts(filter.value)
+        //         .then(setPosts)
+        //     // run user filter fetch with value
+        // } else if (filter.type === "tag") {
+        //     getPostsByTag(filter.value)
+        //         .then(setPosts)
+        //     // run tag filter fetch with value
+        // }
     }, [filter])
 
     // useEffect that updates posts, [searchButton]
     return <>
         {/* filter by title jsx */}
-        <fieldset id="titleSearchField">
+        {/* <fieldset id="titleSearchField">
             <div className="titleSearch">
                 <input
                     type="text"
@@ -87,10 +88,10 @@ export const AllPosts = () => {
                     <label htmlFor="searchButton">Search</label>
                 </button>
             </div>
-        </fieldset>
+        </fieldset> */}
         {/* filter by category jsx */}
 
-        <fieldset>
+        {/* <fieldset>
             <select
                 className="categoryDropdown"
                 name="categoryId"
@@ -116,11 +117,11 @@ export const AllPosts = () => {
                     );
                 })}
             </select>
-        </fieldset>
+        </fieldset> */}
         
         
         {/* filter by user jsx */}
-        <fieldset id="authorDropdown">
+        {/* <fieldset id="authorDropdown">
             <select
                 className="authorDropdown"
                 name="authorId"
@@ -146,9 +147,9 @@ export const AllPosts = () => {
                     );
                 })}
             </select>
-        </fieldset>
+        </fieldset> */}
         {/* filter by tag jsx */}
-        <fieldset>
+        {/* <fieldset>
             <select
                 className="tagDropdown"
                 name="tagId"
@@ -172,7 +173,7 @@ export const AllPosts = () => {
                     );
                 })}
             </select>
-        </fieldset>
+        </fieldset> */}
 
         <div className="singlePost">
             <div>Title</div>

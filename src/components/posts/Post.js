@@ -30,7 +30,7 @@ export const Post = ({ listView, cardView, post }) => {
                         <img src={`${post.imageUrl || "https://picsum.photos/300/100"}`} />
                     </div>
                     <div className="cardBottom">
-                        <div>Author: {post.user.firstName} {post.user.lastName}</div>
+                        <div>Author: {post.rareUser.user.firstName} {post.rareUser.user.lastName}</div>
                         <div className="cardFunctions">
                             <div>Reaction Count: 0</div>
                             {
@@ -55,7 +55,7 @@ export const Post = ({ listView, cardView, post }) => {
                                     : null
                             }
                         </div>
-                        <div>{post.user.firstName} {post.user.lastName}</div>
+                        <div>{post.rareUser.user.firstName} {post.rareUser.user.lastName}</div>
                         <div>{post.publicationDate}</div>
                         <div>{post.category.label}</div>
                         <div>{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</div>
@@ -76,7 +76,7 @@ export const Post = ({ listView, cardView, post }) => {
                             <div><img src={`${post.imageUrl || "https://picsum.photos/300/100"}`} /></div>
                             <div className="postDetailsBelowCard">
                                 <div>By <Link to={`/users/${post.userId}`} >
-                                    {post.user.username}
+                                    {post.rareUser.user.username}
                                 </Link>
                                 </div>
                                 {
