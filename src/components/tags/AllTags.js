@@ -2,10 +2,12 @@ import { getAllTags } from "./TagManager"
 import React, { useEffect, useState } from "react";
 import { NewTagForm } from "./CreateTagForm";
 import { useHistory } from "react-router-dom";
+import { fetchIt } from "../utils/Fetch";
+import { Settings } from "../utils/Settings";
 export const AllTags = () => {
 
     const [tags, setTags] = useState([])
-    // const [toggle, setToggle] = useState(true)
+    const [toggle, setToggle] = useState(true)
 
     const getTags = () => {
         return getAllTags()
@@ -15,26 +17,21 @@ export const AllTags = () => {
     }
     const history = useHistory()
 
+
+
     useEffect(() => {
         getAllTags().then(setTags)
     },
         [])
 
-    // useEffect(
-    //     () => {
-    //         getAllTags().then(setTags)
-    //     },
-    //     [tags]
-    // )
-    const deleteTag = (tag) => {
-        const requestOptions = {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("token")}`
-            },
-            body: tag
-        }
+    useEffect(
+        () => {
+            getAllTags().then(setTags)
+        },
+        [toggle]
+    )
+    const deleteTag = (id) => {
+        return fetchIt(`${Settings.API}/tags/${id}`, "DELETE" )
     }
 
     return <>
@@ -51,11 +48,15 @@ export const AllTags = () => {
             return <div key={`tag--${tag.id}`}>{tag.label}
                 {/* <button>edit</button> */}
                 <button onClick={
-                    () => {
-                        if (confirm('Are you sure ?')) {
-                            deleteTag();
+                    (e) => {
+                        // window.confirm('Are you sure you wish to delete this item?') ? onConfirm("confirm") : onCancel(history.push("/tags"))
+                        // let text;
+                        if (confirm("Are you sure you want to delete this?") == true) {
+                            deleteTag(tag.id).then(() => {
+                                setToggle(!toggle)
+                            });
                         } else {
-                            console.log('cancel')
+                            history.push("/tags");
                         }
                     }
                 } className="submit-button">delete</button>
