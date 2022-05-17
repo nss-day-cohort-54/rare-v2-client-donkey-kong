@@ -3,6 +3,7 @@
 import { getAllCategories } from "./CategoryManager";
 import React, { useEffect, useState } from "react";
 import { NewCategoryForm } from "./CreateCategoryForm";
+import { ButtonControls } from "../buttonControls/ButtonControls";
 // import React, useEffect, useState 
 
 // declare and export function AllCategories which get all category objects
@@ -36,7 +37,7 @@ export const AllCategories = () => {
         </div>
         {categories.map((category) => {
             return <div key={`category--${category.id}`}>{category.label}
-                <button>edit</button> <button>delete</button>
+                <ButtonControls itemType={"category"} id={category.id} getCategories={getCategories} />
             </div>
         })}
 

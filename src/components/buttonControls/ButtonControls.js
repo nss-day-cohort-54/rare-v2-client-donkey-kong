@@ -2,8 +2,9 @@ import { Settings } from "../utils/Settings"
 import { deleteComment } from "../comments/CommentManager"
 import { deletePost } from "../posts/PostManager"
 import { useHistory } from "react-router-dom"
+import { deleteCategory } from "../categories/CategoryManager"
 
-export const ButtonControls = ({ itemType, postId, id, getComments }) => {
+export const ButtonControls = ({ itemType, postId, id, getComments, getAllCategories }) => {
   // itemType should be a string - "post", "comment", or "tag"
   // comment needs postId as well to be able to get all the comments for the post
   // id is the id of the target item
@@ -44,7 +45,17 @@ export const ButtonControls = ({ itemType, postId, id, getComments }) => {
             case "tag":
 
               break;
-
+            
+            case "category":
+              deleteCategory(id)
+                  .then(()=> {
+                    getAllCategories()
+                  })
+                  .then(() => {
+                    const buttonTarget = document.querySelector(`#${itemType}-${id}`)
+                    buttonTarget.close()
+                  })
+              break;
             default:
               break;
           }
@@ -92,4 +103,3 @@ export const ButtonControls = ({ itemType, postId, id, getComments }) => {
     </button>
   </div >
 }
-
