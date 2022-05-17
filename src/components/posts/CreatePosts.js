@@ -1,10 +1,8 @@
 // imports React, useEffect, useSate, useHistory, sendPost, fetchTags
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { fetchIt } from "../utils/Fetch"
-import { Settings } from "../utils/Settings"
 import { getAllTags } from "../tags/TagManager";
-import { getAllPosts, getSinglePost } from "./PostManager";
+import { createPost, editPost, getSinglePost } from "./PostManager";
 import { getAllCategories } from "../categories/CategoryManager";
 import { useParams } from "react-router-dom";
 
@@ -17,21 +15,14 @@ export const CreatePosts = ({ getPosts, editing }) => {
     const { postId } = useParams()
     const history = useHistory()
 
-    useEffect(() => {
-        getAllCategories()
-            .then((categories) => {
-                setCategories(categories)
-            })
-    },
-        [])
 
-    useEffect(() => {
-        getAllTags()
-            .then((tags) => {
-                setTags(tags)
-            })
-    },
-        [])
+    useEffect(
+        () => {
+            getAllCategories().then(setCategories)
+                .then(getAllTags().then(setTags))
+        },
+        []
+    )
 
     useEffect(
         () => {
@@ -42,32 +33,32 @@ export const CreatePosts = ({ getPosts, editing }) => {
         }, []
     )
 
-    const handleControlledInputChange = (event) => {
+    const handleControlledInputChange = e => {
         /*
             When changing a state object or array, always create a new one
             and change state instead of modifying current one
         */
         const newPost = Object.assign({}, form)
-        if (event.target.name === "tags") {
-            if (!(event.target.name in newPost)) {
-                newPost[event.target.name] = []
+        if (e.target.name === "tags") {
+            if (!(e.target.name in newPost)) {
+                newPost[e.target.name] = []
             }
-            let val = parseInt(event.target.id)
-            if (event.target.checked) {
-                newPost[event.target.name].push(tags.find(tag => tag.id === val))
+            let val = parseInt(e.target.id)
+            if (e.target.checked) {
+                newPost[e.target.name].push(tags.find(tag => tag.id === val))
             } else {
-                newPost[event.target.name] = newPost[event.target.name].filter(tag => tag.id !== val)
+                newPost[e.target.name] = newPost[e.target.name].filter(tag => tag.id !== val)
             }
         } else {
-            newPost[event.target.name] = event.target.value
+            newPost[e.target.name] = event.target.value
         }
         updateForm(newPost)
     }
 
-    const submitPost = (e) => {
+    const submitPost = e => {
         e.preventDefault()
         let tagsToAdd = []
-        if(form.tags && form.tags.length > 0) {
+        if (form.tags && form.tags.length > 0) {
             tagsToAdd = form.tags.map(tag => tag.id)
         }
         const newPost = {
@@ -77,17 +68,17 @@ export const CreatePosts = ({ getPosts, editing }) => {
             publicationDate: (new Date()).toISOString().split('T')[0],
             imageUrl: form.imageUrl,
             content: form.content,
-            approved: 1,
+            approved: 0,
             tags: tagsToAdd
         }
-        if(newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {
+        if (newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {
             if (editing) {
                 newPost.id = parseInt(postId)
-                return fetchIt(`${Settings.API}/posts/${postId}`, "PUT", JSON.stringify(newPost))
+                return editPost(postId)
                     .then(() => history.push(`/posts/single/${postId}`))
             } else {
-                return fetchIt(`${Settings.API}/posts`, "POST", JSON.stringify(newPost))
-                    .then((sentPost) => history.push(`/posts/single/${sentPost.id}`))
+                createPost(newPost)
+                    .then(newPost => history.push(`/posts/single/${newPost.id}`))
             }
         } else {
             window.alert("Please finish filling out post form.")
