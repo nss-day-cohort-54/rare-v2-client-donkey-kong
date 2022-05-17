@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { ButtonControls } from "../buttonControls/ButtonControls"
 import { CommentList } from "../comments/CommentsList"
+import { TagDialog } from "../tags/TagDialog"
 import "./Post.css"
 // function that renders a single post
 export const Post = ({ listView, cardView, post }) => {
@@ -95,7 +96,13 @@ export const Post = ({ listView, cardView, post }) => {
                                     : <div>{post.content}</div>
                             }
                         </div>
-                        <div className="postDetailsTags">{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</div>
+                        <div className="postDetailsTags">
+                        { post.rareUser.id === parseInt(localStorage.getItem("userId"))
+                            ? <TagDialog />
+                            : null
+                        }
+                            {post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}
+                        </div>
                         <div>Created on:{`${dateFormat}`}</div>
                     </div>
 
