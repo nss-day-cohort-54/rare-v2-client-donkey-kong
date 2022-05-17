@@ -12,6 +12,7 @@ import { MyPosts } from "./posts/MyPosts.js"
 import { PostsByUser } from "./posts/PostsByUser.js"
 import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
+import { CommentForm } from "./comments/CommentForm.js"
 
 export const ApplicationViews = () => {
   return (
@@ -42,6 +43,12 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/editPost/:postId(\d+)">
         <CreatePosts editing={true} />
+      </Route>
+      <Route exact path="/posts/single/:postId(\d+)/commentCreate">
+        <CommentForm />
+      </Route>
+      <Route exact path="/posts/single/:postId(\d+)/commentCreate/:commentId(\d+)">
+        <CommentForm />
       </Route>
       <Route exact path="/posts/single/:postId(\d+)">
         <SinglePost />
