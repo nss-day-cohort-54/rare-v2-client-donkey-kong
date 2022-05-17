@@ -11,6 +11,9 @@ export const Post = ({ listView, cardView, post }) => {
     const history = useHistory()
     const currentUser = parseInt(localStorage.getItem("userId"))
 
+    const date = post.publicationDate
+    const [year, month, day] = date.split('-')
+    const dateFormat = [month, day, year].join('-')
 
     return <>
         {/* Content needed in all posts list */}
@@ -24,7 +27,7 @@ export const Post = ({ listView, cardView, post }) => {
                                 {post.title}
                             </Link>
                         </div>
-                        <div>{post.publicationDate}</div>
+                        <div>Created on:{`${post.publicationDate}`}</div>
                     </div>
                     <div className="cardImage">
                         <img src={`${post.imageUrl || "https://picsum.photos/300/100"}`} />
@@ -93,7 +96,10 @@ export const Post = ({ listView, cardView, post }) => {
                             }
                         </div>
                         <div className="postDetailsTags">{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</div>
+                        <div>Created on:{`${dateFormat}`}</div>
                     </div>
+
+
         }
         {/* Content needed in card view */}
         {/* Title, Image, Author Name (not username), Publication date, reaction count */}
