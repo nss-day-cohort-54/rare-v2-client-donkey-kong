@@ -73,8 +73,8 @@ export const ButtonControls = ({ itemType, postId, id, getComments }) => {
           break;
         case "comment":
           // history push to edit comment route
-          debugger
-          <CommentForm editing={true} postId={postId} getComments={getComments}/>
+          
+          history.push(`/posts/single/${postId}/commentCreate/${id}`)
 
           break;
         case "tag":

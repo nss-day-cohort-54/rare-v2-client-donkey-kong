@@ -5,6 +5,7 @@
 // Component for comment form
 
 import { useState, useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { Comment } from "./Comment"
 import { CommentForm } from "./CommentForm"
 import { getCommentsByPostId } from "./CommentManager"
@@ -19,7 +20,7 @@ export const CommentList = ({ postId }) => {
     // const [comments, setComments] = useState([])
     const [comments, setComments] = useState([])
     // useEffect that pulls comments by postId
-
+    const history = useHistory()
     useEffect(
         () => {
             if (postId) {
@@ -56,7 +57,7 @@ export const CommentList = ({ postId }) => {
         <div className="submitNewCommentButton">
             <button className="btn btn-2 btn-sep icon-create"
                 onClick={() => {
-                    history.push({ pathname: "/tags/new" })
+                    history.push({ pathname: `/posts/single/${postId}/commentCreate` })
 
                 }}
             >Submit a Comment</button>
