@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { ButtonControls } from "../buttonControls/ButtonControls"
 import { CommentList } from "../comments/CommentsList"
 import "./Post.css"
+import { deletePost } from "./PostManager"
 // function that renders a single post
 export const Post = ({ listView, cardView, post }) => {
 
@@ -97,6 +98,25 @@ export const Post = ({ listView, cardView, post }) => {
                         </div>
                         <div className="postDetailsTags">{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</div>
                         <div>Created on:{`${dateFormat}`}</div>
+                        {
+                            currentUser === post.rareUser.user.id ?
+                                <button
+                                    onClick={
+                                        () => {
+                                            deletePost(post.id)
+                                                .then(
+                                                    () => {
+                                                        history.push("/posts")
+                                                    }
+                                                )
+                                        }
+                                    }
+                                >
+                                    Delete
+                                </button>
+                                :
+                                <button>fail</button>
+                        }
                     </div>
 
 

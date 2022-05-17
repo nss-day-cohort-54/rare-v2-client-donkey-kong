@@ -3,7 +3,7 @@ import { Post } from "./Post"
 import { getUserPosts } from "./PostManager"
 
 export const MyPosts = () => {
-    const currentUser = localStorage.getItem("userId")
+    const currentUser = parseInt(localStorage.getItem("userId"))
     const [posts, setPosts] = useState([])
 
     useEffect(
@@ -19,7 +19,7 @@ export const MyPosts = () => {
             posts.map(post => {
                 return <div key={`post-${post.id}`}>
                     <Post listView={true} cardView={true} post={post} />
-                </div> 
+                </div>
             })
         }
     </>
