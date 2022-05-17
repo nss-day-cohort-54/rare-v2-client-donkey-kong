@@ -13,7 +13,7 @@ import { getCommentsByPostId } from "./CommentManager"
 // export component CommentList that is a single post's comments
 
 // From Individual Post Component
-    // <CommentList postId={id} /> - displayed on a boolean
+// <CommentList postId={id} /> - displayed on a boolean
 export const CommentList = ({ postId }) => {
     // declare state variable for comments array
     // const [comments, setComments] = useState([])
@@ -22,7 +22,7 @@ export const CommentList = ({ postId }) => {
 
     useEffect(
         () => {
-            if(postId) {
+            if (postId) {
                 getComments(postId)
             }
         },
@@ -43,29 +43,36 @@ export const CommentList = ({ postId }) => {
 
     // any other functions?
     // deleteComment
-        // takes commentId param
-        // invokes fetch function deleteComment()
+    // takes commentId param
+    // invokes fetch function deleteComment()
 
     // addComment
-        // builds proper comment
+    // builds proper comment
 
 
     return <>
-    comments
-    {/* <CommentForm postId={postId} /> */}
-    <CommentForm postId={postId} getComments={getComments}/>
-    {/* 
+        comments
+        {/* <CommentForm postId={postId} /> */}
+        <div className="submitNewCommentButton">
+            <button className="btn btn-2 btn-sep icon-create"
+                onClick={() => {
+                    history.push({ pathname: "/tags/new" })
+
+                }}
+            >Submit a Comment</button>
+        </div>
+        {/* 
         map over comments and invoke comment component
         other needed JSX tags for styling
     */}
-    {
-        comments.map(comment => {
-            let currentAuthor = comment.user?.id === parseInt(localStorage.getItem("userId"))
-            return <div key={`comment--${comment.id}`}>
+        {
+            comments.map(comment => {
+                let currentAuthor = comment.author?.user.id === parseInt(localStorage.getItem("userId"))
+                return <div key={`comment--${comment.id}`}>
                     <Comment postId={postId} commentObject={comment} currentAuthor={currentAuthor} getComments={getComments} />
                 </div>
-        })
-    }
-    
+            })
+        }
+
     </>
 }

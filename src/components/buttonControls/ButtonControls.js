@@ -2,6 +2,7 @@ import { Settings } from "../utils/Settings"
 import { deleteComment } from "../comments/CommentManager"
 import { deletePost } from "../posts/PostManager"
 import { useHistory } from "react-router-dom"
+import { CommentForm } from "../comments/CommentForm"
 
 export const ButtonControls = ({ itemType, postId, id, getComments }) => {
   // itemType should be a string - "post", "comment", or "tag"
@@ -71,7 +72,9 @@ export const ButtonControls = ({ itemType, postId, id, getComments }) => {
 
           break;
         case "comment":
-          window.alert("Cannot edit comments")
+          // history push to edit comment route
+          debugger
+          <CommentForm editing={true} postId={postId} getComments={getComments}/>
 
           break;
         case "tag":

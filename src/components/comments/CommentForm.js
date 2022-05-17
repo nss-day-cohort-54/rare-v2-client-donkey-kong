@@ -1,10 +1,12 @@
 // imports
 // addComment from CommentManager
 import { useState } from "react"
-import { addComment } from "./CommentManager"
+import { useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { addComment, getCommentById } from "./CommentManager"
 
 // export function that handles comment form entry
-export const CommentForm = ({ postId, getComments }) => {
+export const CommentForm = ({ postId, getComments, editing}) => {
     // declare state variable for comment to add
     const [newComment, setComment] = useState("")
         // should have values
@@ -13,6 +15,20 @@ export const CommentForm = ({ postId, getComments }) => {
         // content
     
     // function to handle comment submission
+
+    const {commentId} = useParams()
+
+    
+
+    useEffect(() => {
+        if (editing) {
+            getCommentById(commentId).then((res) => {
+                setComment(newComment = res.content)
+            })
+        }
+    })
+
+
     const submitComment = () => {
         if(newComment.length > 0) {
             
