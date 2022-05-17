@@ -59,7 +59,11 @@ export const AllTags = () => {
                             history.push("/tags");
                         }
                     }
-                } className="submit-button">delete</button>
+                } className="submit-button">Delete</button>
+                <button onClick={() => {
+                    history.push({ pathname: `/tags/edit/${tag.id}` })
+                    // setToggle!(toggle)
+                }}>Edit</button>
             </div>
         })}
 
