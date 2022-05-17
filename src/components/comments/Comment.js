@@ -35,9 +35,9 @@ export const Comment = ({ postId, commentObject, currentAuthor, getComments }) =
             currentAuthor
                 ? <div>
                     <ButtonControls
-                        isPost={false}
+                        itemType={"comment"}
                         postId={postId}
-                        commentId={commentObject.id}
+                        id={commentObject.id}
                         getComments={getComments} />
                 </div>
                 : null
