@@ -1,8 +1,6 @@
 // fetch all the categories
 
-const API = 'http://localhost:8088'
+import { fetchIt } from "../utils/Fetch"
+import { Settings } from "../utils/Settings"
 
-export const getAllCategories = () => {
-  return fetch(`${API}/categories`)
-    .then((res) => res.json())
-}
+export const getAllCategories = () => fetchIt(`${Settings.API}/categories`)
