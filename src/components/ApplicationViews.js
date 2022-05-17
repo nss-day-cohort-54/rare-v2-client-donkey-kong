@@ -12,6 +12,7 @@ import { MyPosts } from "./posts/MyPosts.js"
 import { PostsByUser } from "./posts/PostsByUser.js"
 import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
+import { EditTagForm } from "./tags/EditTag.js"
 
 export const ApplicationViews = () => {
   return (
@@ -33,6 +34,9 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/tags/new">
         <NewTagForm />
+      </Route>
+      <Route exact path="/tags/edit/:tagId(\d+)">
+        <EditTagForm />
       </Route>
       <Route exact path="/newPost">
         <CreatePosts editing={false} />
