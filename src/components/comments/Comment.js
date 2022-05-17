@@ -30,7 +30,7 @@ export const Comment = ({ postId, commentObject, currentAuthor, getComments }) =
                 deleteComment displayed if comment author is current user
             */}
         <div>{commentObject.content}</div>
-        <div>{commentObject.user.username}</div>
+        <div>{commentObject.user?.username}</div>
         {
             currentAuthor
                 ? <div>

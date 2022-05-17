@@ -15,7 +15,7 @@ export const CommentForm = ({ postId, getComments }) => {
     // function to handle comment submission
     const submitComment = () => {
         if(newComment.length > 0) {
-
+            
             const copy = {}
             copy.content = newComment
             // gets comment content from state
