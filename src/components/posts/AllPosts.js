@@ -1,4 +1,4 @@
-import { getAllPosts, deletePost, searchPostCategories, searchPostTitles, getPostsByTag } from "./PostManager"
+import { getAllPosts, deletePost, searchPostCategories, searchPostTitles, getPostsByTag, editPost } from "./PostManager"
 import { getUserPosts } from "./PostManager"
 import React, { useEffect, useState } from "react";
 import { Post } from "./Post";
@@ -18,16 +18,18 @@ export const AllPosts = () => {
     const [toggle, setToggle] = useState(true)
     const [categories, setCategories] = useState([])
     const [filter, setFilterType] = useState({ type: "all", value: "" })
-    const currentUser = parseInt(localStorage.getItem('userId'))
     const [adminCheck, setAdminCheck] = useState([])
     const history = useHistory()
-    // useEffect(
-    //     () => {
-    //         getAllUsers()
-    //             .then(setUsers)
-    //     },
-    //     []
-    // )
+    const currentUser = parseInt(localStorage.getItem('userId'))
+
+
+    useEffect(
+        () => {
+            getAllUsers()
+                .then(setUsers)
+        },
+        []
+    )
 
     useEffect(
         () => {
@@ -45,21 +47,21 @@ export const AllPosts = () => {
         [toggle]
     )
 
-    // useEffect(
-    //     () => {
-    //         getAllTags()
-    //             .then(setTags)
-    //     },
-    //     []
-    // )
+    useEffect(
+        () => {
+            getAllTags()
+                .then(setTags)
+        },
+        []
+    )
 
-    // useEffect(
-    //     () => {
-    //         getAllCategories()
-    //             .then(setCategories)
-    //     },
-    //     []
-    // )
+    useEffect(
+        () => {
+            getAllCategories()
+                .then(setCategories)
+        },
+        []
+    )
 
 
     useEffect(() => {
@@ -228,6 +230,20 @@ export const AllPosts = () => {
                                     }
                                 >
                                     <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
+                                </button>
+                                :
+                                ""
+                        }
+                        {
+                            currentUser === post.rareUser.user.id || adminCheck.user.isStaff ?
+                                <button className="btn-EditIf"
+                                    onClick={
+                                        () => {
+                                            history.push(`/editPost/${post.id}`)
+                                        }
+                                    }
+                                >
+                                    <img className="editIcon" src={`${Settings.EditIcon}`} width="25px" height="25px" />
                                 </button>
                                 :
                                 ""

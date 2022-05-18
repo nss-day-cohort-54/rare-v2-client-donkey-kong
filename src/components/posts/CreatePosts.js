@@ -125,7 +125,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-
                     <input
                         required
                         type="text" id="post"
@@ -142,13 +141,8 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     />
                 </div>
             </fieldset>
-<<<<<<< HEAD
-
-=======
->>>>>>> main
             <fieldset>
                 <div className="form-group">
-
                     <select name="category"
                         onChange={(e) => {
                             const copy = { ...form }
@@ -199,16 +193,27 @@ export const CreatePosts = ({ getPosts, editing }) => {
                 </div>
             })
             }
-
-
-            <div className="submitButtonCreateNewPostForm">
-                <button onClick={(e) => {
+            {!editing ? <div className="submitButtonCreateNewPostForm">
+                <button onClick={e => {
                     submitPost(e)
                     updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
                 }} className="submit-button">
                     Submit
                 </button>
             </div>
+                :
+                <div className="submitButtonEditPostForm">
+                    <button className="submit-button"
+                        onClick={
+                            () => {
+                                editPost(postId)
+                                updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
+                            }} >
+                        Submit
+                    </button>
+                </div>
+            }
+
         </>
     )
 }
