@@ -31,7 +31,7 @@ export const User = ({ listView, user }) => {
     useEffect(
         () => {
             if(viewUser) {
-                let count = viewUser.posts.length
+                let count = viewUser.posts?.length
                 setPostCount(count)
             }
         }, [viewUser]

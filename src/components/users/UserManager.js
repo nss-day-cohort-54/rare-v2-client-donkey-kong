@@ -15,6 +15,4 @@ export const getAllUsers = () => {
 // get single user by user id
 // returns user object with posts array embedded
 // user object should have all properties except password
-export const getSingleUser = (id) => {
-    return fetchIt(`${Settings.API}/users/${id}`)
-}
+export const getSingleUser = id => fetchIt(`${Settings.API}/users/${id}`)
