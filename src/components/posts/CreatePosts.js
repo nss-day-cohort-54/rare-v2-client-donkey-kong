@@ -88,7 +88,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
         <>
             <fieldset>
                 <div className="form-group">
-
                     <input
                         required
                         type="text" id="post"
@@ -105,9 +104,9 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     />
                 </div>
             </fieldset>
+
             <fieldset>
                 <div className="form-group">
-
                     <input
                         required
                         type="text" id="post"
@@ -144,8 +143,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
                 </div>
             </fieldset>
 
-
-
             <fieldset>
                 <div className="form-group">
 
@@ -171,8 +168,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     </select>
                 </div>
             </fieldset>
-
-
 
             {tags.map(tag => {
                 // logic to determine whether box should be pre-checked
