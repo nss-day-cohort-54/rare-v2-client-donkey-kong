@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { Post } from "./Post"
-import { getUserPosts } from "./PostManager"
+import { getUserPosts, deletePost } from "./PostManager"
 import { Settings } from "../utils/Settings"
+import { useHistory } from "react-router-dom"
 
 export const MyPosts = () => {
     const currentUser = parseInt(localStorage.getItem("userId"))
     const [posts, setPosts] = useState([])
-
+    const history = useHistory()
     useEffect(
         () => {
             getUserPosts(currentUser)

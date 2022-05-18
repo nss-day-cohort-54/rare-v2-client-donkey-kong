@@ -1,4 +1,4 @@
-import { getAllPosts, searchPostCategories, searchPostTitles, getPostsByTag } from "./PostManager"
+import { getAllPosts, deletePost, searchPostCategories, searchPostTitles, getPostsByTag } from "./PostManager"
 import { getUserPosts } from "./PostManager"
 import React, { useEffect, useState } from "react";
 import { Post } from "./Post";
@@ -7,6 +7,7 @@ import { getAllTags } from "../tags/TagManager";
 import { getAllCategories } from "../categories/CategoryManager";
 import { Settings } from "../utils/Settings";
 import { getSingleUser } from "../users/UserManager";
+import { useHistory } from "react-router-dom";
 
 
 export const AllPosts = () => {
@@ -14,11 +15,12 @@ export const AllPosts = () => {
     const [posts, setPosts] = useState([])
     const [users, setUsers] = useState([])
     const [tags, setTags] = useState([])
+    const [toggle, setToggle] = useState(true)
     const [categories, setCategories] = useState([])
     const [filter, setFilterType] = useState({ type: "all", value: "" })
     const currentUser = parseInt(localStorage.getItem('userId'))
     const [adminCheck, setAdminCheck] = useState([])
-
+    const history = useHistory()
     // useEffect(
     //     () => {
     //         getAllUsers()
@@ -33,6 +35,14 @@ export const AllPosts = () => {
                 .then(r => setAdminCheck(r))
         },
         []
+    )
+    useEffect(
+        () => {
+            getAllPosts().then(
+                setPosts
+            )
+        },
+        [toggle]
     )
 
     // useEffect(
@@ -206,7 +216,7 @@ export const AllPosts = () => {
                                                 deletePost(post.id)
                                                     .then(
                                                         () => {
-                                                            history.push("/posts/all")
+                                                            setToggle(!toggle)
                                                         }
                                                     )
                                             } else {
