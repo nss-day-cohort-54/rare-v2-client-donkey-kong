@@ -12,6 +12,8 @@ import { MyPosts } from "./posts/MyPosts.js"
 import { PostsByUser } from "./posts/PostsByUser.js"
 import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
+import { NewCategoryForm } from "./categories/CreateCategoryForm.js"
+import { CommentForm } from "./comments/CommentForm.js"
 
 export const ApplicationViews = () => {
   return (
@@ -43,6 +45,12 @@ export const ApplicationViews = () => {
       <Route exact path="/editPost/:postId(\d+)">
         <CreatePosts editing={true} />
       </Route>
+      <Route exact path="/posts/single/:postId(\d+)/commentCreate">
+        <CommentForm />
+      </Route>
+      <Route exact path="/posts/single/:postId(\d+)/commentCreate/:commentId(\d+)">
+        <CommentForm />
+      </Route>
       <Route exact path="/posts/single/:postId(\d+)">
         <SinglePost />
       </Route>
@@ -52,12 +60,14 @@ export const ApplicationViews = () => {
       <Route exact path="/posts/user/:userId(\d+)">
         <PostsByUser />
       </Route>
-      {/* 
-      <Route exact path="/posts/create">
-        <CreatePost />
-      </Route> */}
       <Route exact path="/categories">
         <AllCategories />
+      </Route>
+      <Route exact path="/categories/create">
+        <NewCategoryForm editing={false} />
+      </Route>
+      <Route exact path="/categories/edit/:categoryId(\d+)">
+        <NewCategoryForm editing={true} />
       </Route>
     </>
   )

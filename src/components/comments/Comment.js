@@ -30,14 +30,14 @@ export const Comment = ({ postId, commentObject, currentAuthor, getComments }) =
                 deleteComment displayed if comment author is current user
             */}
         <div>{commentObject.content}</div>
-        <div>{commentObject.user.username}</div>
+        <div>{commentObject.author?.user.username}</div>
         {
             currentAuthor
                 ? <div>
                     <ButtonControls
-                        isPost={false}
+                        itemType={"comment"}
                         postId={postId}
-                        commentId={commentObject.id}
+                        id={commentObject.id}
                         getComments={getComments} />
                 </div>
                 : null

@@ -5,6 +5,7 @@ import { ButtonControls } from "../buttonControls/ButtonControls"
 import { CommentList } from "../comments/CommentsList"
 import { TagDialog } from "../tags/TagDialog"
 import "./Post.css"
+import { deletePost } from "./PostManager"
 // function that renders a single post
 export const Post = ({ listView, cardView, post }) => {
 
@@ -40,7 +41,7 @@ export const Post = ({ listView, cardView, post }) => {
                             {
                                 post.userId === currentUser
                                     ? <div className="cardButtons">
-                                        <ButtonControls isPost={true} postId={post.id} />
+                                        <ButtonControls itemType={"post"} id={post.id} />
                                     </div>
                                     : null
                             }
@@ -55,7 +56,7 @@ export const Post = ({ listView, cardView, post }) => {
                             </Link>
                             {
                                 post.userId === currentUser
-                                    ? <ButtonControls isPost={true} postId={post.id} />
+                                    ? <ButtonControls itemType={"post"} id={post.id} />
                                     : null
                             }
                         </div>
@@ -70,7 +71,7 @@ export const Post = ({ listView, cardView, post }) => {
                                 <div className="cardButtons">
                                     {
                                         post.userId === currentUser
-                                            ? <ButtonControls isPost={true} postId={post.id} />
+                                            ? <ButtonControls itemType={"post"} id={post.id} />
                                             : null
                                     }
                                 </div>
@@ -104,6 +105,30 @@ export const Post = ({ listView, cardView, post }) => {
                             {post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}
                         </div>
                         <div>Created on:{`${dateFormat}`}</div>
+                        {
+                            currentUser === post.rareUser.user.id ?
+                                <button
+                                    onClick={
+                                        () => {
+                                            if (confirm("Are you sure you want to delete this?") == true) {
+                                                deletePost(post.id)
+                                                    .then(
+                                                        () => {
+                                                            history.push("/posts/all")
+                                                        }
+                                                    )
+                                            } else {
+                                                history.push(`/posts/single/${post.id}`);
+                                            }
+
+                                        }
+                                    }
+                                >
+                                    Delete
+                                </button>
+                                :
+                                <button>fail</button>
+                        }
                     </div>
 
 

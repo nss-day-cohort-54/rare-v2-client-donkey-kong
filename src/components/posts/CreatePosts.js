@@ -83,7 +83,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     .then(() => history.push(`/posts/single/${postId}`))
             } else {
                 createPost(newPost)
-                    .then(newPost => history.push(`/posts/single/${newPost.id}`))
+                    .then(() => history.push(`/posts/all`))
             }
         } else {
             window.alert("Please finish filling out post form.")
@@ -148,9 +148,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     />
                 </div>
             </fieldset>
-
-
-
             <fieldset>
                 <div className="form-group">
 

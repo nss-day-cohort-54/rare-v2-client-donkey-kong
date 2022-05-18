@@ -3,6 +3,8 @@
 import { getAllCategories } from "./CategoryManager";
 import React, { useEffect, useState } from "react";
 import { NewCategoryForm } from "./CreateCategoryForm";
+import { ButtonControls } from "../buttonControls/ButtonControls";
+import { useHistory } from "react-router-dom";
 // import React, useEffect, useState 
 
 // declare and export function AllCategories which get all category objects
@@ -11,7 +13,7 @@ export const AllCategories = () => {
 // use UseState to set the state for the categories array for
 // when the state changes.
     const [categories, setCategories] = useState([])
-
+    const history = useHistory()
     // use UseEffect to getAllCategories and set the state of the category array.
     useEffect(() => {
         getCategories()
@@ -31,12 +33,12 @@ export const AllCategories = () => {
 // edit and delete buttons  
     return <>
         <div>AllCategories Page</div>
-        <div className="CreateNewCategoryFormContainer">
-            <NewCategoryForm getCategories={getCategories} />
-        </div>
+        <button onClick={() => {
+            history.push("/categories/create")
+        }}>Create Category</button>
         {categories.map((category) => {
             return <div key={`category--${category.id}`}>{category.label}
-                <button>edit</button> <button>delete</button>
+                <ButtonControls itemType={"category"} id={category.id} refreshCategories={getCategories} />
             </div>
         })}
 
