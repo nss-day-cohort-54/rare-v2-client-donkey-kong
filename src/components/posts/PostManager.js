@@ -18,7 +18,7 @@ export const createPost = newPost => fetchIt(`${Settings.API}/posts`, "POST", ne
 // body will have stringified json with (post) as arg
 // then getAllPosts
 
-export const editPost = id => fetchIt(`${Settings.API}/posts/${id}`, "PUT", id)
+export const editPost = (postId, post) => fetchIt(`${Settings.API}/posts/${postId}`, "PUT", post)
 
 
 // export function that deletes a single post "postId => {"

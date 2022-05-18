@@ -97,8 +97,8 @@ export const Post = ({ listView, cardView, post }) => {
                             }
                         </div>
                         <div className="postDetailsTags">
-                        { post.rareUser.id === parseInt(localStorage.getItem("userId"))
-                            ? <TagDialog />
+                        { post.rareUser?.id === parseInt(localStorage.getItem("userId"))
+                            ? <TagDialog Toast = {post}/>
                             : null
                         }
                             {post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}
