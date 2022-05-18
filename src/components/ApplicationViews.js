@@ -12,6 +12,7 @@ import { MyPosts } from "./posts/MyPosts.js"
 import { PostsByUser } from "./posts/PostsByUser.js"
 import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
+import { NewCategoryForm } from "./categories/CreateCategoryForm.js"
 import { CommentForm } from "./comments/CommentForm.js"
 
 export const ApplicationViews = () => {
@@ -61,6 +62,12 @@ export const ApplicationViews = () => {
       </Route>
       <Route exact path="/categories">
         <AllCategories />
+      </Route>
+      <Route exact path="/categories/create">
+        <NewCategoryForm editing={false} />
+      </Route>
+      <Route exact path="/categories/edit/:categoryId(\d+)">
+        <NewCategoryForm editing={true} />
       </Route>
     </>
   )
