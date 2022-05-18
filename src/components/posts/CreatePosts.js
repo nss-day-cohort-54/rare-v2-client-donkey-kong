@@ -50,7 +50,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
                 newPost[e.target.name] = newPost[e.target.name].filter(tag => tag.id !== val)
             }
         } else {
-            newPost[e.target.name] = event.target.value
+            newPost[e.target.name] = e.target.value
         }
         updateForm(newPost)
     }
@@ -75,10 +75,10 @@ export const CreatePosts = ({ getPosts, editing }) => {
             if (editing) {
                 newPost.id = parseInt(postId)
                 return editPost(postId)
-                    .then(() => history.push(`/posts/single/${postId}`))
+                    .then(() => history.push(`/posts/all`))
             } else {
                 createPost(newPost)
-                    .then(newPost => history.push(`/posts/single/${newPost.id}`))
+                    .then(() => history.push(`/posts/all`))
             }
         } else {
             window.alert("Please finish filling out post form.")
@@ -142,7 +142,10 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     />
                 </div>
             </fieldset>
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
             <fieldset>
                 <div className="form-group">
 

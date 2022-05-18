@@ -8,7 +8,7 @@ export const getSubsForFollower = (followerId) => {
 
 // post new sub relationship
 export const addSub = (new_sub) => {
-    return fetchIt(`${Settings.API}/subscriptions`, "POST", JSON.stringify(new_sub))
+    return fetchIt(`${Settings.API}/subscriptions`, "POST", new_sub)
 }
 // delete sub relationship
 export const deleteSub = (subId) => {
