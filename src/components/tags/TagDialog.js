@@ -5,11 +5,9 @@ import React, { useEffect, useState } from "react";
 import { getSinglePost } from "../posts/PostManager";
 import { Settings } from "../utils/Settings";
 import { fetchIt } from "../utils/Fetch";
-export const TagDialog = ({Toast}) => {
+export const TagDialog = ({ toast }) => {
     const [tags, setTags] = useState([])
     const [post, setPost] = useState([])
-
-    const history = useHistory()
     const { postId } = useParams()
     useEffect(() => {
         getAllTags().then(setTags)
@@ -22,7 +20,7 @@ export const TagDialog = ({Toast}) => {
                 r.tags = r.tags.map((t) => {
                     return t.id
                 })
-                    setPost(r)
+                setPost(r)
             })
     },
         [])
@@ -93,8 +91,8 @@ export const TagDialog = ({Toast}) => {
             <button onClick={() => {
                 const buttonTarget = document.querySelector(`#manageTag`)
                 updatePost(post)
+                    .then(toast)
                 buttonTarget.close()
-                history.push(`/posts/single/${postId}`)
             }}>Save</button>
         </dialog>
         <button onClick={() => {

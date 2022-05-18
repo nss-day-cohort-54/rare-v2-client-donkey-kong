@@ -7,7 +7,7 @@ import { TagDialog } from "../tags/TagDialog"
 import "./Post.css"
 import { deletePost } from "./PostManager"
 // function that renders a single post
-export const Post = ({ listView, cardView, post }) => {
+export const Post = ({ listView, cardView, post, toast }) => {
 
     const [showComments, setShowComments] = useState(false)
     const history = useHistory()
@@ -98,10 +98,10 @@ export const Post = ({ listView, cardView, post }) => {
                             }
                         </div>
                         <div className="postDetailsTags">
-                        { post.rareUser?.id === parseInt(localStorage.getItem("userId"))
-                            ? <TagDialog Toast = {post}/>
-                            : null
-                        }
+                            {post.rareUser?.id === parseInt(localStorage.getItem("userId"))
+                                ? <TagDialog toast={toast} />
+                                : null
+                            }
                             {post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}
                         </div>
                         <div>Created on:{`${dateFormat}`}</div>

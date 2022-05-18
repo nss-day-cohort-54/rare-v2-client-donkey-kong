@@ -8,21 +8,25 @@ export const SinglePost = () => {
     const [post, setPost] = useState({})
     const { postId } = useParams()
 
+    const toast = () => {
+        if (postId) {
+            getSinglePost(postId)
+                .then(setPost)
+        }
+    }
+
     useEffect(
         () => {
-            if(postId) {
-                getSinglePost(postId)
-                    .then(setPost)
-            }
+            toast()
         },
         [postId]
     )
 
     return <>
-    {
-        post.title
-        ? <Post listView={false} cardView={false} post={post} />
-        : "loading"
-    }
+        {
+            post.title
+                ? <Post listView={false} cardView={false} post={post} toast={toast} />
+                : "loading"
+        }
     </>
 }
