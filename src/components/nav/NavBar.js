@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import useAdminCheck from "../utils/useAdminCheck"
 import "./NavBar.css"
 import Logo from "./rare.jpeg"
 
@@ -12,6 +13,7 @@ export const NavBar = ({ token, setToken }) => {
     hamburger.current.classList.toggle('is-active')
     navbar.current.classList.toggle('is-active')
   }
+
 
   return (
     <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">

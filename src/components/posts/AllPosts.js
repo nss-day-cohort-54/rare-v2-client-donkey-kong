@@ -20,7 +20,7 @@ export const AllPosts = () => {
     const [categories, setCategories] = useState([])
     const [filter, setFilterType] = useState({ type: "all", value: "" })
     const currentUser = parseInt(localStorage.getItem('userId'))
-    const [adminCheck, setAdminCheck] = useState([])
+    // const [adminCheck, setAdminCheck] = useState([])
     const history = useHistory()
     const {adminCheck2} = useAdminCheck()
     // useEffect(
@@ -31,13 +31,13 @@ export const AllPosts = () => {
     //     []
     // )
 
-    useEffect(
-        () => {
-            getSingleUser(currentUser)
-                .then(r => setAdminCheck(r))
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         getSingleUser(currentUser)
+    //             .then(r => setAdminCheck(r))
+    //     },
+    //     []
+    // )
     useEffect(
         () => {
             getAllPosts().then(
@@ -210,7 +210,7 @@ export const AllPosts = () => {
                 ? posts.map((post) => {
                     return <div key={post.id} className="posts">
                         {
-                            currentUser === post.rareUser.user.id || adminCheck2 ?
+                            currentUser === post.rareUser.user?.id || adminCheck2 ?
                                 <button className="btn-deleteIfUser"
                                     onClick={
                                         () => {
