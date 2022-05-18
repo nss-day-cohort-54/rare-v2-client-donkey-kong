@@ -28,7 +28,12 @@ export const CreatePosts = ({ getPosts, editing }) => {
         () => {
             if (editing) {
                 getSinglePost(postId)
-                    .then(updateForm)
+                    .then((r) => {
+                        let copy = r.tags.map((tag) => {
+                            return tag.id
+                        })
+                        .then(updateForm(copy))
+                    })
             }
         }, []
     )
@@ -59,7 +64,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
         e.preventDefault()
         let tagsToAdd = []
         if (form.tags && form.tags.length > 0) {
-            tagsToAdd = form.tags.map(tag => tag.id)
+            tagsToAdd = form.tags
         }
         const newPost = {
             userId: parseInt(localStorage.getItem("userId")),
@@ -74,8 +79,8 @@ export const CreatePosts = ({ getPosts, editing }) => {
         if (newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {
             if (editing) {
                 newPost.id = parseInt(postId)
-                return editPost(postId)
-                    .then(() => history.push(`/posts/all`))
+                return editPost(postId, newPost)
+                    .then(() => history.push(`/posts/single/${postId}`))
             } else {
                 createPost(newPost)
                     .then(() => history.push(`/posts/all`))

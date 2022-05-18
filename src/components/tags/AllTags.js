@@ -31,7 +31,7 @@ export const AllTags = () => {
         [toggle]
     )
     const deleteTag = (id) => {
-        return fetchIt(`${Settings.API}/tags/${id}`, "DELETE" )
+        return fetchIt(`${Settings.API}/tags/${id}`, "DELETE")
     }
 
     return <>
