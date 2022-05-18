@@ -57,3 +57,7 @@
 .postDetailsBelowCard {
     display: flex;
 }
+
+.posts{
+    display: flex;
+}

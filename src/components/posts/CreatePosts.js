@@ -75,10 +75,10 @@ export const CreatePosts = ({ getPosts, editing }) => {
             if (editing) {
                 newPost.id = parseInt(postId)
                 return editPost(postId)
-                    .then(() => history.push(`/posts`))
+                    .then(() => history.push(`/posts/all`))
             } else {
                 createPost(newPost)
-                    .then(() => history.push(`/posts`))
+                    .then(() => history.push(`/posts/all`))
             }
         } else {
             window.alert("Please finish filling out post form.")

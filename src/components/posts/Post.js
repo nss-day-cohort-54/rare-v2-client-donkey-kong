@@ -103,12 +103,17 @@ export const Post = ({ listView, cardView, post }) => {
                                 <button
                                     onClick={
                                         () => {
-                                            deletePost(post.id)
-                                                .then(
-                                                    () => {
-                                                        history.push("/posts")
-                                                    }
-                                                )
+                                            if (confirm("Are you sure you want to delete this?") == true) {
+                                                deletePost(post.id)
+                                                    .then(
+                                                        () => {
+                                                            history.push("/posts/all")
+                                                        }
+                                                    )
+                                            } else {
+                                                history.push(`/posts/single/${post.id}`);
+                                            }
+
                                         }
                                     }
                                 >

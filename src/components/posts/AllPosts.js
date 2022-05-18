@@ -5,6 +5,8 @@ import { Post } from "./Post";
 import { getAllUsers } from "../users/UserManager"
 import { getAllTags } from "../tags/TagManager";
 import { getAllCategories } from "../categories/CategoryManager";
+import { Settings } from "../utils/Settings";
+import { getSingleUser } from "../users/UserManager";
 
 
 export const AllPosts = () => {
@@ -14,7 +16,8 @@ export const AllPosts = () => {
     const [tags, setTags] = useState([])
     const [categories, setCategories] = useState([])
     const [filter, setFilterType] = useState({ type: "all", value: "" })
-
+    const currentUser = parseInt(localStorage.getItem('userId'))
+    const [adminCheck, setAdminCheck] = useState([])
 
     // useEffect(
     //     () => {
@@ -23,6 +26,14 @@ export const AllPosts = () => {
     //     },
     //     []
     // )
+
+    useEffect(
+        () => {
+            getSingleUser(currentUser)
+                .then(r => setAdminCheck(r))
+        },
+        []
+    )
 
     // useEffect(
     //     () => {
@@ -118,8 +129,8 @@ export const AllPosts = () => {
                 })}
             </select>
         </fieldset> */}
-        
-        
+
+
         {/* filter by user jsx */}
         {/* <fieldset id="authorDropdown">
             <select
@@ -186,23 +197,45 @@ export const AllPosts = () => {
             posts.length > 0
                 ? posts.map((post) => {
                     return <div key={post.id} className="posts">
+                        {
+                            currentUser === post.rareUser.user.id || adminCheck.user.isStaff ?
+                                <button className="btn-deleteIfUser"
+                                    onClick={
+                                        () => {
+                                            if (confirm("Are you sure you want to delete this?") == true) {
+                                                deletePost(post.id)
+                                                    .then(
+                                                        () => {
+                                                            history.push("/posts/all")
+                                                        }
+                                                    )
+                                            } else {
+                                                () => {
+                                                    history.push(`/posts/single/${post.id}`)
+                                                }
+                                            }
+                                        }
+                                    }
+                                >
+                                    <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
+                                </button>
+                                :
+                                ""
+                        }
                         <Post listView={true} cardView={false} post={post} />
                     </div>
-                    // needs author name and category, publication date, content 
                 })
                 : "No posts"
         }
-
-
     </>
 }
 
 // ADD INTO RETURN STATEMENT ABOVE
-// delete button
-// onclick
-// prompts with "Are you sure you want to delete this post?" alert window
-// Alert window "Ok" button
-// Alert window "Cancel" button
+// delete button COMPLETE
+// onclick COMPLETE
+// prompts with "Are you sure you want to delete this post?" alert window COMPLETE
+// Alert window "Ok" button COMPLETE
+// Alert window "Cancel" button COMPLETE
 
 // edit button
 // onclick
@@ -213,3 +246,6 @@ export const AllPosts = () => {
 // Links to "Author My Posts" page
 
 //search field
+
+
+// currentUser -> compared to user.id -> check is_staff
