@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { fetchIt } from "../utils/Fetch"
 import { Settings } from "../utils/Settings"
-import { getSingleCategory } from "./CategoryManager";
+import { createCategory, editCategory, getSingleCategory } from "./CategoryManager";
 
 // def a function that will return a new category category
 
@@ -26,15 +26,12 @@ export const NewCategoryForm = ({ editing }) => {
 
     const submitNewCategory = (e) => {
         e.preventDefault()
-        const newCategory = {
-            label: category.label,
-        }
         if(editing) {
-            return fetchIt(`${Settings.API}/categories/${categoryId}`, "PUT", newCategory)
+            return editCategory(category)
                 .then(() => history.push("/categories"))
         }
-        return fetchIt(`${Settings.API}/categories`, "POST", newCategory)
-            .then(() => history.push("/categories"))
+        return createCategory(category)
+                .then(() => history.push("/categories"))
     }
 
 

@@ -12,11 +12,8 @@ import { MyPosts } from "./posts/MyPosts.js"
 import { PostsByUser } from "./posts/PostsByUser.js"
 import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
-<<<<<<< HEAD
 import { NewCategoryForm } from "./categories/CreateCategoryForm.js"
-=======
 import { CommentForm } from "./comments/CommentForm.js"
->>>>>>> main
 
 export const ApplicationViews = () => {
   return (

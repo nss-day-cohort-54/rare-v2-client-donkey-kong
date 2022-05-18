@@ -2,11 +2,7 @@ import { Settings } from "../utils/Settings"
 import { deleteComment } from "../comments/CommentManager"
 import { deletePost } from "../posts/PostManager"
 import { useHistory } from "react-router-dom"
-<<<<<<< HEAD
 import { deleteCategory } from "../categories/CategoryManager"
-=======
-import { CommentForm } from "../comments/CommentForm"
->>>>>>> main
 
 export const ButtonControls = ({ itemType, postId, id, getComments, refreshCategories }) => {
   // itemType should be a string - "post", "comment", or "tag"
