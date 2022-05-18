@@ -4,7 +4,7 @@ import { deletePost } from "../posts/PostManager"
 import { useHistory } from "react-router-dom"
 import { deleteCategory } from "../categories/CategoryManager"
 
-export const ButtonControls = ({ itemType, postId, id, getComments, getAllCategories }) => {
+export const ButtonControls = ({ itemType, postId, id, getComments, refreshCategories }) => {
   // itemType should be a string - "post", "comment", or "tag"
   // comment needs postId as well to be able to get all the comments for the post
   // id is the id of the target item
@@ -33,14 +33,13 @@ export const ButtonControls = ({ itemType, postId, id, getComments, getAllCatego
               deleteComment(id)
                 .then(
                   () => {
-                    getComments(postId)
+                    const buttonTarget = document.querySelector(`#${itemType}-${id}`)
+                    buttonTarget.close()
                   })
                 .then(
                   () => {
-                    const buttonTarget = document.querySelector(`#${itemType}-${id}`)
-                    buttonTarget.close()
-                  }
-                )
+                    getComments(postId)
+                  })
               break;
             case "tag":
 
@@ -48,12 +47,12 @@ export const ButtonControls = ({ itemType, postId, id, getComments, getAllCatego
             
             case "category":
               deleteCategory(id)
-                  .then(()=> {
-                    getAllCategories()
-                  })
                   .then(() => {
                     const buttonTarget = document.querySelector(`#${itemType}-${id}`)
                     buttonTarget.close()
+                  })
+                  .then(()=> {
+                    refreshCategories()
                   })
               break;
             default:
@@ -86,6 +85,9 @@ export const ButtonControls = ({ itemType, postId, id, getComments, getAllCatego
 
           break;
         case "tag":
+          break;
+        case "category":
+          history.push(`/categories/edit/${id}`)
           break;
         default:
           break;

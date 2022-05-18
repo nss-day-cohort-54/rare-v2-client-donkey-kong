@@ -15,3 +15,5 @@ export const deleteCategory = (id) => {
   return fetchIt(`${Settings.API}/categories/${id}`, "DELETE")
 }
 export const getAllCategories = () => fetchIt(`${Settings.API}/categories`)
+
+export const getSingleCategory = (id) => fetchIt(`${Settings.API}/categories/${id}`)
