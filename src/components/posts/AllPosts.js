@@ -8,6 +8,8 @@ import { getAllCategories } from "../categories/CategoryManager";
 import { Settings } from "../utils/Settings";
 import { getSingleUser } from "../users/UserManager";
 import { useHistory } from "react-router-dom";
+import useAdminCheck from "../utils/useAdminCheck";
+import { ButtonControls } from "../buttonControls/ButtonControls";
 
 
 export const AllPosts = () => {
@@ -18,26 +20,25 @@ export const AllPosts = () => {
     const [toggle, setToggle] = useState(true)
     const [categories, setCategories] = useState([])
     const [filter, setFilterType] = useState({ type: "all", value: "" })
-    const [adminCheck, setAdminCheck] = useState([])
-    const history = useHistory()
     const currentUser = parseInt(localStorage.getItem('userId'))
+    // const [adminCheck, setAdminCheck] = useState([])
+    const history = useHistory()
+    const {adminCheck2} = useAdminCheck()
+    // useEffect(
+    //     () => {
+    //         getAllUsers()
+    //             .then(setUsers)
+    //     },
+    //     []
+    // )
 
-
-    useEffect(
-        () => {
-            getAllUsers()
-                .then(setUsers)
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            getSingleUser(currentUser)
-                .then(r => setAdminCheck(r))
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         getSingleUser(currentUser)
+    //             .then(r => setAdminCheck(r))
+    //     },
+    //     []
+    // )
     useEffect(
         () => {
             getAllPosts().then(
@@ -210,27 +211,8 @@ export const AllPosts = () => {
                 ? posts.map((post) => {
                     return <div key={post.id} className="posts">
                         {
-                            currentUser === post.rareUser.user.id || adminCheck.user.isStaff ?
-                                <button className="btn-deleteIfUser"
-                                    onClick={
-                                        () => {
-                                            if (confirm("Are you sure you want to delete this?") == true) {
-                                                deletePost(post.id)
-                                                    .then(
-                                                        () => {
-                                                            setToggle(!toggle)
-                                                        }
-                                                    )
-                                            } else {
-                                                () => {
-                                                    history.push(`/posts/single/${post.id}`)
-                                                }
-                                            }
-                                        }
-                                    }
-                                >
-                                    <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
-                                </button>
+                            currentUser === post.rareUser.user?.id || adminCheck2 ?
+                                <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
                                 :
                                 ""
                         }
