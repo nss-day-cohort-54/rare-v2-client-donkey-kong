@@ -3,7 +3,7 @@
     justify-content: space-evenly;
 }
 
-.singlePost > div {
+.singlePost>div {
     width: 10rem;
     padding: 1rem;
     border: 1px black dashed;
@@ -16,7 +16,8 @@
     padding: 1em;
 }
 
-.cardTitle, .cardBottom {
+.cardTitle,
+.cardBottom {
     display: flex;
     justify-content: space-between;
 }
@@ -58,6 +59,17 @@
     display: flex;
 }
 
-.posts{
+.posts {
     display: flex;
+}
+
+table {
+
+}
+
+th,
+td {
+    border: 1px black dashed;
+    margin: 1em;
+    padding: 20px;
 }

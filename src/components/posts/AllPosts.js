@@ -23,7 +23,7 @@ export const AllPosts = () => {
     const currentUser = parseInt(localStorage.getItem('userId'))
     // const [adminCheck, setAdminCheck] = useState([])
     const history = useHistory()
-    const {adminCheck2} = useAdminCheck()
+    const { adminCheck2 } = useAdminCheck()
     // useEffect(
     //     () => {
     //         getAllUsers()
@@ -199,28 +199,41 @@ export const AllPosts = () => {
             </select>
         </fieldset> */}
 
-        <div className="singlePost">
-            <div>Title</div>
-            <div>Author</div>
-            <div>Publication Date</div>
-            <div>Category</div>
-            <div>Tags</div>
-        </div>
-        {
-            posts.length > 0
-                ? posts.map((post) => {
-                    return <div key={post.id} className="posts">
-                        {
-                            currentUser === post.rareUser.user?.id || adminCheck2 ?
-                                <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
-                                :
-                                ""
-                        }
-                        <Post listView={true} cardView={false} post={post} />
-                    </div>
-                })
-                : "No posts"
-        }
+        <table className="postTable">
+            <thead>
+                <tr>
+                        <th></th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publication Date</th>
+                    <th>Category</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    posts.length > 0
+                        ? posts.map((post) => {
+                            return <tr key={post.id} className="postTableRow">
+                                <td>
+
+                                    {
+                                        currentUser === post.rareUser.user?.id || adminCheck2 ?
+                                            <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
+                                            :
+                                            ""
+                                    }
+                                </td>
+                                <Post listView={true} cardView={false} post={post} />
+                            </tr>
+                        })
+                        : <tr><td>
+                            "No posts"
+                            </td></tr>
+                }
+            </tbody>
+
+        </table>
     </>
 }
 
