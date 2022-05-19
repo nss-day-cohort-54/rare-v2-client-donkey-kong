@@ -199,6 +199,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
                 </div>
             })
             }
+
             <div className="submitButtonCreateNewPostForm">
                 <button onClick={e => {
                     submitPost(e)
@@ -208,8 +209,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     Submit
                 </button>
             </div>
-
-
         </>
     )
 }
