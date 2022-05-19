@@ -31,7 +31,7 @@ export const User = ({ listView, user }) => {
     useEffect(
         () => {
             if(viewUser) {
-                let count = viewUser.posts?.length
+                let count = viewUser.user.posts?.length
                 setPostCount(count)
             }
         }, [viewUser]
@@ -64,24 +64,24 @@ export const User = ({ listView, user }) => {
         {listView 
             ? <div className="singleUser">
                 <div>
-                    <Link to={`/users/${user.id}`}>
-                    {user.username}
+                    <Link to={`/users/${user.user.id}`}>
+                    {user.user.username}
                     </Link>
                 </div>
-                <div>{user.firstName}</div>
-                <div>{user.lastName}</div>
-                <div>{user.email}</div>
+                <div>{user.user.firstName}</div>
+                <div>{user.user.lastName}</div>
+                <div>{viewUser.user.isStaff ? "Author" : "Admin"}</div>
             </div> 
             : viewUser
                 ? <div>
-                    <div>Picture: <img src={`${viewUser.profileImageUrl || "https://m.media-amazon.com/images/I/91xDQaUMubS._AC_SL1500_.jpg"}`} width={300} height={300} /></div>
-                    <div>Name: {viewUser.firstName} {viewUser.lastName}</div>
-                    <div>Username: {viewUser.username}</div>
-                    <div>Email: {viewUser.email}</div>
-                    <div>Creation Date: {viewUser.createdOn}</div>
-                    <div>Profile Type: Author</div>
+                    <div>Picture: <img src={`${viewUser.user.profileImageUrl || "https://m.media-amazon.com/images/I/91xDQaUMubS._AC_SL1500_.jpg"}`} width={300} height={300} /></div>
+                    <div>Name: {viewUser.user.firstName} {viewUser.user.lastName}</div>
+                    <div>Username: {viewUser.user.username}</div>
+                    <div>Email: {viewUser.user.email}</div>
+                    <div>Creation Date: {viewUser.user.createdOn}</div>
+                    <div>Profile Type: {viewUser.user.isStaff ? "Author" : "Admin"}</div>
                     <div>
-                        <Link to={`/posts/user/${viewUser.id}`}>
+                        <Link to={`/posts/user/${viewUser.user.id}`}>
                         See Articles - Count: {postCount}
                         </Link>
                     </div>
