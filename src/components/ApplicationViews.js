@@ -14,6 +14,8 @@ import { SinglePost } from "./posts/SinglePost.js"
 import { NewTagForm } from "./tags/CreateTagForm.js"
 import { NewCategoryForm } from "./categories/CreateCategoryForm.js"
 import { CommentForm } from "./comments/CommentForm.js"
+import { NewReactionForm } from "./reactions/CreateReactionForm.js"
+import { ReactionList } from "./reactions/ReactionsList.js"
 
 export const ApplicationViews = () => {
   return (
@@ -33,11 +35,17 @@ export const ApplicationViews = () => {
       <Route exact path="/tags">
         <AllTags />
       </Route>
+      <Route exact path="/reactions">
+        <ReactionList />
+      </Route>
       <Route exact path="/tags/edit/:tagId(\d+)">
         <EditTagForm />
       </Route>
       <Route exact path="/tags/new">
         <NewTagForm />
+      </Route>
+      <Route exact path="/reactions/new">
+        <NewReactionForm />
       </Route>
       <Route exact path="/newPost">
         <CreatePosts editing={false} />
