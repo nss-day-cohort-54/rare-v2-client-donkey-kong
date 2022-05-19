@@ -9,6 +9,7 @@ import { Settings } from "../utils/Settings";
 import { getSingleUser } from "../users/UserManager";
 import { useHistory } from "react-router-dom";
 import useAdminCheck from "../utils/useAdminCheck";
+import { ButtonControls } from "../buttonControls/ButtonControls";
 
 
 export const AllPosts = () => {
@@ -211,26 +212,7 @@ export const AllPosts = () => {
                     return <div key={post.id} className="posts">
                         {
                             currentUser === post.rareUser.user?.id || adminCheck2 ?
-                                <button className="btn-deleteIfUser"
-                                    onClick={
-                                        () => {
-                                            if (confirm("Are you sure you want to delete this?") == true) {
-                                                deletePost(post.id)
-                                                    .then(
-                                                        () => {
-                                                            setToggle(!toggle)
-                                                        }
-                                                    )
-                                            } else {
-                                                () => {
-                                                    history.push(`/posts/single/${post.id}`)
-                                                }
-                                            }
-                                        }
-                                    }
-                                >
-                                    <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
-                                </button>
+                                <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
                                 :
                                 ""
                         }
