@@ -15,6 +15,9 @@ export const NewReactionForm = ({ getReactions }) => {
             imageUrl: form.imageUrl
         }
         return createReaction(newReaction)
+                .then(() => {
+                    history.push("/reactions")
+                })
     }
 
     return (
