@@ -7,9 +7,8 @@ import { getAllCategories } from "../categories/CategoryManager";
 import { useParams } from "react-router-dom";
 
 
-
 export const CreatePosts = ({ getPosts, editing }) => {
-    const [form, updateForm] = useState({ label: "" })
+    const [form, updateForm] = useState({})
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
     const { postId } = useParams()
@@ -29,10 +28,11 @@ export const CreatePosts = ({ getPosts, editing }) => {
             if (editing) {
                 getSinglePost(postId)
                     .then((r) => {
-                        let copy = r.tags.map((tag) => {
-                            return tag.id
-                        })
-                        .then(updateForm(copy))
+                        r.categoryId = r.category.id
+                        // r.tags = r.tags.map((tag) => {
+                        //     return tag.id
+                        // })
+                        updateForm(r)
                     })
             }
         }, []
@@ -64,7 +64,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
         e.preventDefault()
         let tagsToAdd = []
         if (form.tags && form.tags.length > 0) {
-            tagsToAdd = form.tags
+            tagsToAdd = form.tags.map(t => t.id)
         }
         const newPost = {
             userId: parseInt(localStorage.getItem("userId")),
@@ -78,6 +78,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
         }
         if (newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {
             if (editing) {
+                debugger
                 newPost.id = parseInt(postId)
                 return editPost(postId, newPost)
                     .then(() => history.push(`/posts/single/${postId}`))
@@ -198,26 +199,16 @@ export const CreatePosts = ({ getPosts, editing }) => {
                 </div>
             })
             }
-            {!editing ? <div className="submitButtonCreateNewPostForm">
+            <div className="submitButtonCreateNewPostForm">
                 <button onClick={e => {
                     submitPost(e)
-                    updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
+                        .then(updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
+                        )
                 }} className="submit-button">
                     Submit
                 </button>
             </div>
-                :
-                <div className="submitButtonEditPostForm">
-                    <button className="submit-button"
-                        onClick={
-                            () => {
-                                editPost(postId)
-                                updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
-                            }} >
-                        Submit
-                    </button>
-                </div>
-            }
+
 
         </>
     )
