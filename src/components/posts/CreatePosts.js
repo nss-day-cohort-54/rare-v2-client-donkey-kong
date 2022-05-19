@@ -5,6 +5,7 @@ import { getAllTags } from "../tags/TagManager";
 import { createPost, editPost, getSinglePost } from "./PostManager";
 import { getAllCategories } from "../categories/CategoryManager";
 import { useParams } from "react-router-dom";
+import useAdminCheck from "../utils/useAdminCheck";
 
 
 
@@ -12,6 +13,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
     const [form, updateForm] = useState({ label: "" })
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
+    const {adminCheck2} = useAdminCheck()
     const { postId } = useParams()
     const history = useHistory()
 
@@ -73,7 +75,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
             publicationDate: (new Date()).toISOString().split('T')[0],
             imageUrl: form.imageUrl,
             content: form.content,
-            approved: 0,
+            approved: adminCheck2 ? 1 : 0,
             tags: tagsToAdd
         }
         if (newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {

@@ -49,8 +49,8 @@ export const Post = ({ listView, cardView, post, toast }) => {
                     </div>
                 </div>
                 : listView
-                    ? <div key={`post--${post.id}`} className="singlePost">
-                        <div>
+                    ? <>
+                        <td>
                             <Link to={`/posts/single/${post.id}`}>
                                 {post.title}
                             </Link>
@@ -59,12 +59,12 @@ export const Post = ({ listView, cardView, post, toast }) => {
                                     ? <ButtonControls itemType={"post"} id={post.id} />
                                     : null
                             }
-                        </div>
-                        <div>{post.rareUser.user.firstName} {post.rareUser.user.lastName}</div>
-                        <div>{post.publicationDate}</div>
-                        <div>{post.category.label}</div>
-                        <div>{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</div>
-                    </div>
+                        </td>
+                        <td>{post.rareUser.user.firstName} {post.rareUser.user.lastName}</td>
+                        <td>{post.publicationDate}</td>
+                        <td>{post.category.label}</td>
+                        <td>{post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}</td>
+                    </>
                     : <div key={`post--${post.id}`} className="postDetails">
                         <div className="postDetailsMain">
                             <div className="postDetailsTitle">
