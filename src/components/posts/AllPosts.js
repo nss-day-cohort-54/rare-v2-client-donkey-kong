@@ -208,7 +208,40 @@ export const AllPosts = () => {
         {
             posts.length > 0
                 ? posts.map((post) => {
+                    let checked_status = false
+                    if (post.approved) {
+                        // debugger
+                        checked_status = true
+                    } else {
+                        checked_status = false
+                    }
                     return <div key={post.id} className="posts">
+                        {adminCheck2 ?
+                            <fieldset>
+                                <input name="approval"
+                                    type="checkbox"
+                                    htmlFor="approval"
+                                    id={post?.id}
+                                    onChange={
+                                        (e) => {
+
+                                            if (e.target.checked) {
+                                                post.approved = 1
+                                            } else {
+                                                post.approved = 0
+                                            }
+                                            editPost(post.id, post)
+                                                .then(setToggle(!toggle))
+
+                                        }
+                                    }
+                                    checked={checked_status}
+                                />
+                                <label htmlFor={post.id}>{post.approved ? "approved" : 'awaiting approval'}</label>
+                            </fieldset>
+                            : null
+                        }
+
                         {
                             currentUser === post.rareUser.user?.id || adminCheck2 ?
                                 <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
