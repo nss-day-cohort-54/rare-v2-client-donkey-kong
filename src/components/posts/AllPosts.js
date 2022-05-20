@@ -23,7 +23,7 @@ export const AllPosts = () => {
     const currentUser = parseInt(localStorage.getItem('userId'))
     // const [adminCheck, setAdminCheck] = useState([])
     const history = useHistory()
-    const {adminCheck2} = useAdminCheck()
+    const { adminCheck2 } = useAdminCheck()
     // useEffect(
     //     () => {
     //         getAllUsers()
@@ -63,7 +63,6 @@ export const AllPosts = () => {
         },
         []
     )
-
 
     useEffect(() => {
         if (filter.type === "all") {
@@ -217,7 +216,7 @@ export const AllPosts = () => {
                                 ""
                         }
                         {
-                            currentUser === post.rareUser.user.id || adminCheck.user.isStaff ?
+                            currentUser === post.rareUser.user.id || adminCheck2 ?
                                 <button className="btn-EditIf"
                                     onClick={
                                         () => {
