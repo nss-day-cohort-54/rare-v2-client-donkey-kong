@@ -1,4 +1,4 @@
-import { getAllPosts, deletePost, searchPostCategories, searchPostTitles, getPostsByTag } from "./PostManager"
+import { getAllPosts, deletePost, searchPostCategories, searchPostTitles, getPostsByTag, editPost } from "./PostManager"
 import { getUserPosts } from "./PostManager"
 import React, { useEffect, useState } from "react";
 import { Post } from "./Post";
@@ -48,22 +48,21 @@ export const AllPosts = () => {
         [toggle]
     )
 
-    // useEffect(
-    //     () => {
-    //         getAllTags()
-    //             .then(setTags)
-    //     },
-    //     []
-    // )
+    useEffect(
+        () => {
+            getAllTags()
+                .then(setTags)
+        },
+        []
+    )
 
-    // useEffect(
-    //     () => {
-    //         getAllCategories()
-    //             .then(setCategories)
-    //     },
-    //     []
-    // )
-
+    useEffect(
+        () => {
+            getAllCategories()
+                .then(setCategories)
+        },
+        []
+    )
 
     useEffect(() => {
         if (filter.type === "all") {
@@ -199,41 +198,61 @@ export const AllPosts = () => {
             </select>
         </fieldset> */}
 
-        <table className="postTable">
-            <thead>
-                <tr>
-                        <th></th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Publication Date</th>
-                    <th>Category</th>
-                    <th>Tags</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    posts.length > 0
-                        ? posts.map((post) => {
-                            return <tr key={post.id} className="postTableRow">
-                                <td>
+        <div className="singlePost">
+            <div>Title</div>
+            <div>Author</div>
+            <div>Publication Date</div>
+            <div>Category</div>
+            <div>Tags</div>
+        </div>
+        {
+            posts.length > 0
+                ? posts.map((post) => {
+                    let checked_status = false
+                    if (post.approved) {
+                        // debugger
+                        checked_status = true
+                    } else {
+                        checked_status = false
+                    }
+                    return <div key={post.id} className="posts">
+                        {adminCheck2 ?
+                            <fieldset>
+                                <input name="approval"
+                                    type="checkbox"
+                                    htmlFor="approval"
+                                    id={post?.id}
+                                    onChange={
+                                        (e) => {
 
-                                    {
-                                        currentUser === post.rareUser.user?.id || adminCheck2 ?
-                                            <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
-                                            :
-                                            ""
+                                            if (e.target.checked) {
+                                                post.approved = 1
+                                            } else {
+                                                post.approved = 0
+                                            }
+                                            editPost(post.id, post)
+                                                .then(setToggle(!toggle))
+
+                                        }
                                     }
-                                </td>
-                                <Post listView={true} cardView={false} post={post} />
-                            </tr>
-                        })
-                        : <tr><td>
-                            "No posts"
-                            </td></tr>
-                }
-            </tbody>
+                                    checked={checked_status}
+                                />
+                                <label htmlFor={post.id}>{post.approved ? "approved" : 'awaiting approval'}</label>
+                            </fieldset>
+                            : null
+                        }
 
-        </table>
+                        {
+                            currentUser === post.rareUser.user?.id || adminCheck2 ?
+                                <ButtonControls itemType={"post"} postId={post.id} id={post.id} />
+                                :
+                                ""
+                        }
+                        <Post listView={true} cardView={false} post={post} />
+                    </div>
+                })
+                : "No posts"
+        }
     </>
 }
 
