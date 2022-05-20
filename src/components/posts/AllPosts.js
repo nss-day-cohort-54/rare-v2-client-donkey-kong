@@ -215,20 +215,6 @@ export const AllPosts = () => {
                                 :
                                 ""
                         }
-                        {
-                            currentUser === post.rareUser.user.id || adminCheck2 ?
-                                <button className="btn-EditIf"
-                                    onClick={
-                                        () => {
-                                            history.push(`/editPost/${post.id}`)
-                                        }
-                                    }
-                                >
-                                    <img className="editIcon" src={`${Settings.EditIcon}`} width="25px" height="25px" />
-                                </button>
-                                :
-                                ""
-                        }
                         <Post listView={true} cardView={false} post={post} />
                     </div>
                 })
