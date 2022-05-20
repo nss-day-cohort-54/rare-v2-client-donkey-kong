@@ -3,16 +3,11 @@ import { Post } from "./Post"
 import { getUserPosts, deletePost } from "./PostManager"
 import { Settings } from "../utils/Settings"
 import { useHistory } from "react-router-dom"
-import { editPost } from "./PostManager"
-import { useParams } from "react-router-dom"
-
 
 export const MyPosts = () => {
     const currentUser = parseInt(localStorage.getItem("userId"))
     const [posts, setPosts] = useState([])
-    const { postId } = useParams()
     const history = useHistory()
-
     useEffect(
         () => {
             getUserPosts(currentUser)
@@ -46,17 +41,6 @@ export const MyPosts = () => {
                             }
                         >
                             <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
-                        </button>
-                    </div>
-                    <div>
-                        <button className="btn-editPost"
-                            onClick={
-                                () => {
-                                    history.push(`/editPost/${post.id}`)
-                                }
-                            }
-                        >
-                            <img className="editIcon" src={`${Settings.EditIcon}`} width="25px" height="25px" />
                         </button>
                     </div>
                 </div>

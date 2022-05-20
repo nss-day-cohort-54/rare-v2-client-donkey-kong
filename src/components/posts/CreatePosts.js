@@ -8,11 +8,12 @@ import { useParams } from "react-router-dom";
 import useAdminCheck from "../utils/useAdminCheck";
 
 
+
 export const CreatePosts = ({ getPosts, editing }) => {
-    const [form, updateForm] = useState({})
+    const [form, updateForm] = useState({ label: "" })
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
-    const { adminCheck2 } = useAdminCheck()
+    const {adminCheck2} = useAdminCheck()
     const { postId } = useParams()
     const history = useHistory()
 
@@ -30,11 +31,10 @@ export const CreatePosts = ({ getPosts, editing }) => {
             if (editing) {
                 getSinglePost(postId)
                     .then((r) => {
-                        r.categoryId = r.category.id
-                        // r.tags = r.tags.map((tag) => {
-                        //     return tag.id
-                        // })
-                        updateForm(r)
+                        let copy = r.tags.map((tag) => {
+                            return tag.id
+                        })
+                        .then(updateForm(copy))
                     })
             }
         }, []
@@ -66,7 +66,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
         e.preventDefault()
         let tagsToAdd = []
         if (form.tags && form.tags.length > 0) {
-            tagsToAdd = form.tags.map(t => t.id)
+            tagsToAdd = form.tags
         }
         const newPost = {
             userId: parseInt(localStorage.getItem("userId")),
@@ -80,7 +80,6 @@ export const CreatePosts = ({ getPosts, editing }) => {
         }
         if (newPost.title && newPost.imageUrl && newPost.categoryId && newPost.tags.length > 0) {
             if (editing) {
-                debugger
                 newPost.id = parseInt(postId)
                 return editPost(postId, newPost)
                     .then(() => history.push(`/posts/single/${postId}`))
@@ -96,6 +95,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
         <>
             <fieldset>
                 <div className="form-group">
+
                     <input
                         required
                         type="text" id="post"
@@ -112,9 +112,9 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     />
                 </div>
             </fieldset>
-
             <fieldset>
                 <div className="form-group">
+
                     <input
                         required
                         type="text" id="post"
@@ -133,6 +133,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
+
                     <input
                         required
                         type="text" id="post"
@@ -151,6 +152,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
+
                     <select name="category"
                         onChange={(e) => {
                             const copy = { ...form }
@@ -173,6 +175,8 @@ export const CreatePosts = ({ getPosts, editing }) => {
                     </select>
                 </div>
             </fieldset>
+
+
 
             {tags.map(tag => {
                 // logic to determine whether box should be pre-checked
@@ -202,22 +206,13 @@ export const CreatePosts = ({ getPosts, editing }) => {
             })
             }
 
+
             <div className="submitButtonCreateNewPostForm">
-                <button onClick={e => {
+                <button onClick={(e) => {
                     submitPost(e)
-                        .then(updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
-                        )
+                    updateForm({ title: "", imageUrl: "", content: "", categoryId: "0" })
                 }} className="submit-button">
                     Submit
-                </button>
-            </div>
-            <div>
-                <button onClick={
-                    () => {
-                        history.push("/posts/all")
-                    }
-                }>
-                    Cancel
                 </button>
             </div>
         </>

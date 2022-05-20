@@ -14,3 +14,4 @@ export const addSub = (new_sub) => {
 export const deleteSub = (subId) => {
     return fetchIt(`${Settings.API}/subscriptions/${subId}`, "DELETE")
 }
+export const editSub = (sub) => fetchIt(`${Settings.API}/subscriptions/${sub.id}`, "PUT", sub)

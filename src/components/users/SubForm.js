@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { addSub, deleteSub, getSubsForFollower } from "./SubManager"
+import { addSub, deleteSub, editSub, getSubsForFollower } from "./SubManager"
 
 
 export const SubForm = ({ author }) => {
@@ -30,7 +30,7 @@ export const SubForm = ({ author }) => {
         if (subs && subs.length > 0) {
             let isSubbed = false
             for (const sub of subs) {
-                if (sub.authorId === author.id) {
+                if (sub.author.id === author.id) {
                     isSubbed = true
                     setCurrentSub(sub)
                 }
@@ -40,23 +40,25 @@ export const SubForm = ({ author }) => {
     }, [subs])
 
     const handleSub = (e) => {
+        // debugger
         if (subbed) {
-            deleteSub(currentSub.id)
+            editSub(currentSub)
                 .then(setSubbed(false))
         } else {
             let userId = parseInt(currentUser)
             if (userId != author.id) {
                 let new_subscription = {
                     followerId: parseInt(currentUser),
-                    authorId: author.id,
-                    createdOn: (new Date()).toISOString().split('T')[0]
+                    authorId: author.id
                 }
                 addSub(new_subscription)
                     .then(returnedSub => {
                         setCurrentSub(returnedSub)
                     })
                     .then(setSubbed(true))
-            } else {
+            } 
+            // if userId doesnt equal author id and c
+            else {
                 window.alert("You can't subscribe to yourself.")
             }
         }
