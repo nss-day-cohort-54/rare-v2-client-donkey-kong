@@ -18,3 +18,7 @@
 #reactionList {
     display: flex;
 }
+
+.reactionSelected {
+    border: 1px dashed blue;
+}
