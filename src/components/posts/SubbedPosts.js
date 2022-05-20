@@ -17,6 +17,7 @@ export const SubbedPosts = () => {
 
     useEffect(
         () => {
+            // debugger
             let postArray = []
             for (const sub of subs) {
                 if(sub.posts) {
