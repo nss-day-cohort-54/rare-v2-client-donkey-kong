@@ -91,7 +91,7 @@ export const Post = ({ listView, cardView, post, toast }) => {
                                         : <button onClick={() => setShowComments(true)}>View Comments</button>
                                 }
                                 <div>
-                                    <ReactionDialog />
+                                    <ReactionDialog postId={post.id} />
 
                                 </div>
                             </div>
