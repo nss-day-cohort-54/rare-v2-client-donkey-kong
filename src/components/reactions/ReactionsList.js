@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getAllReactions } from "./ReactionManager"
+import { Settings } from "../utils/Settings"
 
 export const ReactionList = () => {
     const [reactions, setReactions] = useState([])
