@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { ButtonControls } from "../buttonControls/ButtonControls"
 import { CommentList } from "../comments/CommentsList"
+import { ReactionDialog } from "../reactions/ReactionsDialog"
 import { TagDialog } from "../tags/TagDialog"
 import "./Post.css"
 import { deletePost } from "./PostManager"
@@ -70,7 +71,7 @@ export const Post = ({ listView, cardView, post, toast }) => {
                             <div className="postDetailsTitle">
                                 <div className="cardButtons">
                                     {
-                                        post.userId === currentUser
+                                        post.rareUser.id === currentUser
                                             ? <ButtonControls itemType={"post"} id={post.id} />
                                             : null
                                     }
@@ -89,7 +90,10 @@ export const Post = ({ listView, cardView, post, toast }) => {
                                         ? <button onClick={() => { setShowComments(false) }}>Show Post</button>
                                         : <button onClick={() => setShowComments(true)}>View Comments</button>
                                 }
-                                <div>Reactions</div>
+                                <div>
+                                    <ReactionDialog />
+
+                                </div>
                             </div>
                             {
                                 showComments
@@ -105,30 +109,6 @@ export const Post = ({ listView, cardView, post, toast }) => {
                             {post.tags.map(tag => <div key={`posttag${post.id}${tag.id}`}>{tag.label}</div>)}
                         </div>
                         <div>Created on:{`${dateFormat}`}</div>
-                        {
-                            currentUser === post.rareUser.user.id ?
-                                <button
-                                    onClick={
-                                        () => {
-                                            if (confirm("Are you sure you want to delete this?") == true) {
-                                                deletePost(post.id)
-                                                    .then(
-                                                        () => {
-                                                            history.push("/posts/all")
-                                                        }
-                                                    )
-                                            } else {
-                                                history.push(`/posts/single/${post.id}`);
-                                            }
-
-                                        }
-                                    }
-                                >
-                                    Delete
-                                </button>
-                                :
-                                <button>fail</button>
-                        }
                     </div>
 
 
