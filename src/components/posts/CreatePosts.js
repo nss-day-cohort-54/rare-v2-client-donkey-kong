@@ -12,7 +12,7 @@ export const CreatePosts = ({ getPosts, editing }) => {
     const [form, updateForm] = useState({})
     const [categories, setCategories] = useState([])
     const [tags, setTags] = useState([])
-    const {adminCheck2} = useAdminCheck()
+    const { adminCheck2 } = useAdminCheck()
     const { postId } = useParams()
     const history = useHistory()
 
@@ -209,6 +209,15 @@ export const CreatePosts = ({ getPosts, editing }) => {
                         )
                 }} className="submit-button">
                     Submit
+                </button>
+            </div>
+            <div>
+                <button onClick={
+                    () => {
+                        history.push("/posts/all")
+                    }
+                }>
+                    Cancel
                 </button>
             </div>
         </>
